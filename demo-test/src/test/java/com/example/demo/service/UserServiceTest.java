@@ -21,7 +21,7 @@ private UserService userService;
     public void getUserInfo() {
         User user = userService.getUserInfo(); 
         Assert.assertEquals(18,user.getAge());
-        Assert.assertThat(user.getName(),is("zhonghualong"));
+        //Assert.assertThat(user.getName(),is("zhonghualong"));
 
     }
 }
