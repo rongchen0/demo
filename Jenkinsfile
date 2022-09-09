@@ -13,6 +13,22 @@ pipeline {
                 slackSend channel: "#jenkins", color: "good", message: "Message build"
             }
         }
+        stage('test') {
+           steps {
+               sh 'mvn clean test -Dmaven.test.failure.igonre=true -DfailIfNoTests=false'
+           }
+           post {
+               success {
+                   jacoco (
+                       execPattern: '**/target/jacoco.exec',
+                       classPattern: '**/classes',
+                       sourcePattern: '**/src/main/java',
+                       exclusionPattern: '**/src/test*',
+                       inclusionPattern: '**/com/hel/auto/service/*.class,**/com/hel/auto/controller/*.class',
+                       )
+               }
+           }
+       }
     }  
     
     post {
